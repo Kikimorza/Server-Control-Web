@@ -1,0 +1,6 @@
+{
+  "id": "nodes", "name": "Ноды", "version": "1.0.0", "builtin": true, "default_enabled": true,
+  "description": "Подключение удалённых нод. После выбора ноды в шапке все модули работают на ней.",
+  "icon": "globe", "order": 30, "roles": ["panel"], "platforms": ["windows", "linux"],
+  "ui": "web/ui.js", "nav": {"id": "nodes", "title": "Ноды", "icon": "globe", "page": "nodes"}
+}

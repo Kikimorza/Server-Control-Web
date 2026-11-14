@@ -1,0 +1,2 @@
+/* Модуль может добавлять любые стили и перекрывать стили ядра. */
+body[data-page="hello"] .Page { background: transparent; }

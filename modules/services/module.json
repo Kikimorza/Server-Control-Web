@@ -1,0 +1,6 @@
+{
+  "id": "services", "name": "Службы", "version": "1.0.0", "builtin": true, "default_enabled": true,
+  "description": "Службы systemd (Linux) и службы Windows: список, запуск, остановка, перезапуск, автозапуск, журнал.",
+  "icon": "container", "order": 40, "roles": ["panel", "node"], "platforms": ["windows", "linux"],
+  "ui": "web/ui.js", "nav": {"id": "services", "title": "Службы", "icon": "container", "page": "services"}
+}

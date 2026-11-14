@@ -1,0 +1,6 @@
+{
+  "id": "dashboard", "name": "Обзор системы", "version": "1.0.0", "builtin": true, "default_enabled": true,
+  "description": "CPU, память, диски, аптайм и сведения об ОС.",
+  "icon": "pulse", "order": 10, "roles": ["panel", "node"], "platforms": ["windows", "linux"],
+  "ui": "web/ui.js", "nav": {"id": "dashboard", "title": "Обзор", "icon": "pulse", "page": "dashboard"}
+}

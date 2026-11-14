@@ -1,0 +1,19 @@
+{
+  "type": "panel",
+  "name": "",
+  "host": "0.0.0.0",
+  "port": 8080,
+  "tls": {"cert": "", "key": ""},
+  "session_hours": 12,
+  "trust_proxy": false,
+  "update": {
+    "enabled": true,
+    "repo": "Kikimorza/Server-Control-Web",
+    "tag": "v*",
+    "asset": "server-control-web*.zip",
+    "check_interval_hours": 6,
+    "auto_apply": false,
+    "allow_prerelease": false,
+    "require_checksum": false
+  }
+}

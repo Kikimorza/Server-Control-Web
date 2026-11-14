@@ -1,0 +1,6 @@
+{
+  "id": "files", "name": "Файлы", "version": "1.0.0", "builtin": true, "default_enabled": true,
+  "description": "Файловый менеджер: просмотр, загрузка, скачивание, редактирование текстовых файлов.",
+  "icon": "folder", "order": 25, "roles": ["panel", "node"], "platforms": ["windows", "linux"],
+  "ui": "web/ui.js", "nav": {"id": "files", "title": "Файлы", "icon": "folder", "page": "files"}
+}

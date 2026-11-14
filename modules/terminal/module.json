@@ -1,0 +1,6 @@
+{
+  "id": "terminal", "name": "Терминал", "version": "1.0.0", "builtin": true, "default_enabled": true,
+  "description": "Выполнение команд на сервере (PowerShell/cmd на Windows, bash на Linux).",
+  "icon": "terminal", "order": 20, "roles": ["panel", "node"], "platforms": ["windows", "linux"],
+  "ui": "web/ui.js", "nav": {"id": "terminal", "title": "Терминал", "icon": "terminal", "page": "terminal"}
+}

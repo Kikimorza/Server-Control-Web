@@ -1,0 +1,67 @@
+name: Release
+
+# Релиз создаётся двумя способами:
+#  1) git tag v1.2.3 && git push origin v1.2.3   - обычный релиз (версия берётся из тега);
+#  2) Actions -> Release -> Run workflow, поле "tag" = stable (или любое имя) - "плавающий" тег:
+#     релиз с этим тегом пересоздаётся на текущем коммите. Панели с update.tag = "stable"
+#     подхватят новую сборку автоматически.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Тег релиза (например stable). Для v1.2.3 лучше просто запушить тег."
+        required: true
+        default: stable
+      prerelease:
+        description: "Пометить как pre-release"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Проверка
+        run: python tests/smoke_test.py
+
+      - name: Определить тег
+        id: meta
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [[ "$TAG" =~ ^v[0-9] ]]; then echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"; else echo "version=" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Собрать архив
+        run: |
+          if [ -n "${{ steps.meta.outputs.version }}" ]; then
+            python tools/build_release.py --version "${{ steps.meta.outputs.version }}"
+          else
+            python tools/build_release.py
+          fi
+
+      - name: Опубликовать релиз
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          PRE: ${{ github.event.inputs.prerelease }}
+        run: |
+          # "плавающий" тег: пересоздаём тег и релиз на текущем коммите
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            gh release delete "$TAG" --cleanup-tag --yes 2>/dev/null || true
+            git tag -f "$TAG" "$GITHUB_SHA" && git push -f origin "refs/tags/$TAG"
+          fi
+          FLAGS=""
+          [ "$PRE" = "true" ] && FLAGS="--prerelease"
+          gh release create "$TAG" dist/server-control-web.zip dist/server-control-web.zip.sha256 \
+            --title "Server Control Web $TAG" --generate-notes $FLAGS

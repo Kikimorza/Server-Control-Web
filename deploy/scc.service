@@ -1,0 +1,20 @@
+[Unit]
+Description=Server Control Web
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=__DIR__
+Environment=SCC_SUPERVISED=1
+Environment=PYTHONUNBUFFERED=1
+# Код выхода 3 = перезапуск после обновления - systemd поднимет сервис снова (Restart=always)
+ExecStart=/usr/bin/env python3 __DIR__/run.py
+Restart=always
+RestartSec=2
+# Модули и терминал выполняют команды от имени сервиса. root даёт полный контроль над сервером;
+# для ограниченного режима укажите другого пользователя (но тогда службы/файлы будут доступны только ему).
+User=root
+
+[Install]
+WantedBy=multi-user.target

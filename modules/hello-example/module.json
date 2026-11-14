@@ -1,0 +1,17 @@
+{
+  "id": "hello-example",
+  "name": "Пример модуля",
+  "version": "1.0.0",
+  "author": "Server Control Web",
+  "description": "Шаблон для своих модулей: маршрут API, страница, вкладка настроек, кнопка в шапке, хуки и подмена кода ядра.",
+  "icon": "rocket",
+  "order": 900,
+  "builtin": true,
+  "default_enabled": false,
+  "roles": ["panel", "node"],
+  "platforms": ["windows", "linux"],
+  "min_core": "1.0.0",
+  "ui": "web/ui.js",
+  "css": ["web/style.css"],
+  "nav": {"id": "hello", "title": "Пример", "icon": "rocket", "page": "hello"}
+}
